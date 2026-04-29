@@ -71,7 +71,7 @@ use alacritty_terminal::term::color::Colors;
 use alacritty_terminal::vte::ansi::Color;
 use gpui::{
     App, Bounds, Edges, Font, FontFeatures, FontStyle, FontWeight, Hsla, Pixels, Point,
-    SharedString, Size, TextRun, UnderlineStyle, Window, px, quad, transparent_black,
+    SharedString, Size, TextAlign, TextRun, UnderlineStyle, Window, px, quad, transparent_black,
 };
 
 /// A batched run of text with consistent styling.
@@ -543,7 +543,8 @@ impl TerminalRenderer {
 
             // First pass: find and draw horizontal spans of box-drawing characters
             // This draws continuous lines across multiple cells to avoid gaps
-            let mut processed_horizontal: std::collections::HashSet<usize> = std::collections::HashSet::new();
+            let mut processed_horizontal: std::collections::HashSet<usize> =
+                std::collections::HashSet::new();
 
             let mut i = 0;
             while i < cells_vec.len() {
@@ -710,7 +711,14 @@ impl TerminalRenderer {
                         .shape_line(text, self.font_size, &[text_run], None);
 
                 // Paint at exact cell position (ignore errors)
-                let _ = shaped_line.paint(Point { x, y }, self.cell_height, window, _cx);
+                let _ = shaped_line.paint(
+                    Point { x, y },
+                    self.cell_height,
+                    TextAlign::Left,
+                    None,
+                    window,
+                    _cx,
+                );
             }
         }
 
