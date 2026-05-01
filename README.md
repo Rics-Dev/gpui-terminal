@@ -47,7 +47,7 @@ let colors = ColorPalette::builder()
     .build();
 
 let config = TerminalConfig {
-    font_family: "Mononoki Nerd Font".into(),
+    font_family: "JetBrainsMono Nerd Nerd Font".into(),
     font_size: px(14.0),
     cols: 80,
     rows: 24,
